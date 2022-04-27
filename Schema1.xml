@@ -1,0 +1,62 @@
+<Schema name="TestSchema">
+  <Cube name="Sales OLAP cube" visible="true" cache="true" enabled="true">
+    <Table name="Sale" schema="Fact">
+    </Table>
+    <Dimension type="StandardDimension" visible="true" foreignKey="Customer Key" highCardinality="false" name="Customer">
+      <Hierarchy name="Identification" visible="true" hasAll="true" allMemberName="All Customer" primaryKey="Customer Key">
+        <Table name="Customer" schema="Dimension">
+        </Table>
+        <Level name="Customer Buying group" visible="true" column="Buying Group" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="Customer Name" visible="true" column="Customer" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="Sales" column="Profit" datatype="Numeric" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="Sales quantity" column="Quantity" datatype="Numeric" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="Tax amount" column="Tax Amount" datatype="Numeric" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="Unit price" column="Unit Price" datatype="Integer" aggregator="sum" visible="true">
+    </Measure>
+  </Cube>
+  <Cube name="Purchase" visible="true" cache="true" enabled="true">
+    <Table name="Purchase" schema="Fact">
+    </Table>
+    <Dimension type="StandardDimension" visible="true" foreignKey="Stock Item Key" highCardinality="false" name="Stock item">
+      <Hierarchy name="item identification" visible="true" hasAll="true">
+        <Table name="Stock Item" schema="Dimension">
+        </Table>
+        <Level name="Brand" visible="true" column="Brand" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="item" visible="true" column="Stock Item" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="Supplier Key" highCardinality="false" name="Supplier">
+      <Hierarchy name="Supplier id" visible="true" hasAll="true">
+        <Table name="Supplier" schema="Dimension">
+        </Table>
+        <Level name="Supplier identification" visible="true" column="Supplier" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="Date Key" highCardinality="false" name="Date">
+      <Hierarchy name="date " visible="true" hasAll="true">
+        <Table name="Date" schema="Dimension">
+        </Table>
+        <Level name="Year" visible="true" column="Calendar Year" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="Month" visible="true" column="Month" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="Day" visible="true" column="Day" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="Ordered Quantity" column="Ordered Quantity" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="Ordered Outers" column="Ordered Outers" aggregator="sum" visible="true">
+    </Measure>
+  </Cube>
+</Schema>
